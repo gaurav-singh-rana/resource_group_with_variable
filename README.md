@@ -107,15 +107,6 @@ After successful execution, Terraform will output:
 
 ---
 
-## 📌 Future Improvements
-
-* Add backend configuration (remote state)
-* Introduce modules for scalability
-* Add tagging strategy
-* CI/CD integration (GitHub Actions / Azure DevOps)
-
----
-
 ## 🤝 Contributing
 
 Feel free to fork this repo and improve it.
