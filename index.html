@@ -4,19 +4,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Terraform Variables - Complete Guide</title>
+<title>Terraform Variables – Complete Guide</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
 body { background:#f4f7fb; font-family: 'Segoe UI'; }
-.hero { background: linear-gradient(135deg,#667eea,#764ba2); color:#fff; padding:80px 20px; text-align:center; }
+.hero {
+  background: linear-gradient(135deg,#1d2671,#c33764);
+  color:#fff; padding:90px 20px; text-align:center;
+}
 .section { padding:60px 0; }
-.card { border-radius:15px; border:none; transition:.3s; }
+.card { border:none; border-radius:15px; transition:.3s; }
 .card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,.1); }
-pre { background:#1e1e1e; color:#00ffcc; padding:15px; border-radius:10px; }
-.flow-box { background:#fff; padding:20px; border-radius:10px; text-align:center; font-weight:bold; }
-.arrow { text-align:center; font-size:25px; margin:10px 0; }
+pre {
+  background:#1e1e1e;
+  color:#00ffcc;
+  padding:15px;
+  border-radius:10px;
+}
+.flow-step {
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:bold;
+}
+.arrow { text-align:center; font-size:28px; margin:10px; }
+.badge-box {
+  padding:10px;
+  border-radius:8px;
+  color:#fff;
+}
+.cli { background:#dc3545; }
+.tfvars { background:#0d6efd; }
+.default { background:#6c757d; }
 </style>
 
 </head>
@@ -26,68 +48,42 @@ pre { background:#1e1e1e; color:#00ffcc; padding:15px; border-radius:10px; }
 <!-- HERO -->
 
 <section class="hero">
-  <h1>Terraform Variables Deep Dive 🚀</h1>
-  <p>Understand the WHY, HOW & FLOW like a real DevOps Engineer</p>
+  <h1>Terraform Variables – Complete Guide 🚀</h1>
+  <p>Understand Variables using Real Flow (Declare → Use → Assign → Override)</p>
 </section>
 
-<!-- WHY MULTIPLE FILES -->
+<!-- RESOURCE -->
 
 <section class="section">
 <div class="container">
-<h2>📂 Why Different .tf Files?</h2>
+<h2>📌 Basic Resource Block</h2>
 
-<div class="row g-4">
-<div class="col-md-4">
-<div class="card p-4">
-<h5>main.tf</h5>
-<p>Contains actual resource logic (WHAT to create)</p>
-</div>
-</div>
+<pre>
+resource "azurerm_resource_group" "resource_group" {
+  name     = var.rg_name
+  location = var.rg_location
+}
+</pre>
 
-<div class="col-md-4">
-<div class="card p-4">
-<h5>variables.tf</h5>
-<p>Defines inputs (WHAT values are needed)</p>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="card p-4">
-<h5>terraform.tfvars</h5>
-<p>Stores actual values (WHAT we pass)</p>
-</div>
-</div>
-</div>
-
-<p class="mt-4">
-👉 Separation = Clean code + reusable infra + easy debugging  
-👉 This is exactly how production Terraform is written
+<p>
+Instead of hardcoding values, we use variables to make infrastructure dynamic and reusable.
 </p>
 </div>
 </section>
 
-<!-- HARD CODING -->
+<!-- VARIABLE CONCEPT -->
 
 <section class="section bg-white">
 <div class="container">
-<h2>❌ Why NOT Hardcoding?</h2>
+<h2>📦 Variable = "Dabba" (Container)</h2>
+
+<p>
+Variable ek container hai jisme value store hoti hai. Pehle variable declare karna padta hai:
+</p>
 
 <pre>
-resource "azurerm_resource_group" "rg" {
-  name = "my-prod-rg"
-}
-</pre>
-
-<p class="mt-3">Problems:</p>
-<ul>
-<li>Not reusable ❌</li>
-<li>Hard to change ❌</li>
-<li>Breaks multi-environment setup ❌</li>
-</ul>
-
-<h5 class="mt-4">✅ Correct Way:</h5>
-<pre>
-name = var.rg_name
+variable "rg_name" {}
+variable "rg_location" {}
 </pre>
 
 </div>
@@ -99,56 +95,92 @@ name = var.rg_name
 <div class="container">
 <h2>🔁 Terraform Variable Flow</h2>
 
-<div class="flow-box">1️⃣ Declare Variable</div>
+<div class="flow-step">1️⃣ Declare Variable</div>
 <div class="arrow">⬇️</div>
-<div class="flow-box">2️⃣ Use Variable</div>
+<div class="flow-step">2️⃣ Use Variable</div>
 <div class="arrow">⬇️</div>
-<div class="flow-box">3️⃣ Assign Value</div>
+<div class="flow-step">3️⃣ Assign Value</div>
+<div class="arrow">⬇️</div>
+<div class="flow-step">4️⃣ Override Value</div>
 
 </div>
 </section>
 
-<!-- STEP 1 -->
+<!-- DECLARE -->
 
 <section class="section bg-white">
 <div class="container">
-<h3>Step 1: Declare (variables.tf)</h3>
+<h3>Step 1: Declare Variable</h3>
 
 <pre>
 variable "rg_name" {
-  type        = string
-  description = "Resource Group Name"
+  type = string
 }
 </pre>
 
 </div>
 </section>
 
-<!-- STEP 2 -->
+<!-- USE -->
 
 <section class="section">
 <div class="container">
-<h3>Step 2: Use (main.tf)</h3>
+<h3>Step 2: Use Variable</h3>
 
 <pre>
-resource "azurerm_resource_group" "rg" {
-  name     = var.rg_name
-  location = "West Europe"
-}
+name = var.rg_name
+location = var.rg_location
 </pre>
+
+<p>Rule: Always use <strong>var.</strong> prefix</p>
 
 </div>
 </section>
 
-<!-- STEP 3 -->
+<!-- DEFAULT -->
 
 <section class="section bg-white">
 <div class="container">
-<h3>Step 3: Assign Value (terraform.tfvars)</h3>
+<h3>Step 3: Default Value</h3>
 
 <pre>
-rg_name = "my-dev-rg"
+variable "rg_name" {
+  default = "elephant"
+}
 </pre>
+
+<p>If no value is passed → Terraform uses default</p>
+
+</div>
+</section>
+
+<!-- TFVARS -->
+
+<section class="section">
+<div class="container">
+<h3>Step 4: terraform.tfvars</h3>
+
+<pre>
+rg_name     = "ghoda"
+rg_location = "eastus"
+</pre>
+
+<p>Terraform automatically reads this file</p>
+
+</div>
+</section>
+
+<!-- CLI -->
+
+<section class="section bg-white">
+<div class="container">
+<h3>Step 5: CLI Override</h3>
+
+<pre>
+terraform apply -var="rg_name=prod" -var="rg_location=westus"
+</pre>
+
+<p>CLI always overrides everything</p>
 
 </div>
 </section>
@@ -159,42 +191,63 @@ rg_name = "my-dev-rg"
 <div class="container">
 <h2>⚡ Variable Priority (Important)</h2>
 
-<div class="row g-4">
+<div class="row text-center">
 
-<div class="col-md-3">
-<div class="card p-3">
-<h5>🥇 CLI</h5>
-<p>terraform apply -var="rg_name=prod"</p>
-</div>
+<div class="col-md-4">
+<div class="badge-box cli">🥇 CLI (Highest)</div>
 </div>
 
-<div class="col-md-3">
-<div class="card p-3">
-<h5>🥈 tfvars</h5>
-<p>terraform.tfvars</p>
-</div>
+<div class="col-md-4">
+<div class="badge-box tfvars">🥈 terraform.tfvars</div>
 </div>
 
-<div class="col-md-3">
-<div class="card p-3">
-<h5>🥉 ENV</h5>
-<p>TF_VAR_rg_name</p>
-</div>
-</div>
-
-<div class="col-md-3">
-<div class="card p-3">
-<h5>🏁 Default</h5>
-<p>variables.tf</p>
-</div>
+<div class="col-md-4">
+<div class="badge-box default">🥉 Default</div>
 </div>
 
 </div>
 
-<p class="mt-4">
-👉 Highest priority always overrides lower ones  
-👉 CLI will override everything
+<p class="mt-4 text-center">
+👉 Highest priority always overrides lower values
 </p>
+
+</div>
+</section>
+
+<!-- WHY -->
+
+<section class="section bg-white">
+<div class="container">
+<h2>❌ Why NOT Hardcoding?</h2>
+
+<ul>
+<li>Not reusable</li>
+<li>Not scalable</li>
+<li>Breaks multi-environment setup</li>
+</ul>
+
+<h5 class="mt-3">✅ Why Variables?</h5>
+
+<ul>
+<li>Reusable code</li>
+<li>Multi-environment support</li>
+<li>Flexible & dynamic infra</li>
+</ul>
+
+</div>
+</section>
+
+<!-- STRUCTURE -->
+
+<section class="section">
+<div class="container">
+<h2>📂 Production File Structure</h2>
+
+<pre>
+main.tf            → Resource logic
+variables.tf       → Variable declaration
+terraform.tfvars   → Values
+</pre>
 
 </div>
 </section>
@@ -206,18 +259,16 @@ rg_name = "my-dev-rg"
 <h2>✅ Final Summary</h2>
 
 <ul>
-<li>Separate files = clean & scalable</li>
-<li>Never hardcode values</li>
-<li>Follow 3-step flow (Declare → Use → Assign)</li>
-<li>Understand priority (CLI > tfvars > ENV > default)</li>
+<li>Always declare variables first</li>
+<li>Use var.variable_name to access</li>
+<li>Assign values using tfvars or CLI</li>
+<li>Understand priority (CLI > tfvars > default)</li>
 </ul>
 
 </div>
 </section>
 
-<footer class="text-center p-3 bg-dark text-light">
-Made by Gaurav Singh Rana | DevOps Terraform Project
-</footer>
+
 
 </body>
 </html>
