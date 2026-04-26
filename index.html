@@ -2,68 +2,22 @@
 
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Terraform Variables Guide</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terraform Variables - Complete Guide</title>
 
-  <!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Google Font -->
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #f5f7fb;
-    }
-
-    .hero {
-      background: linear-gradient(135deg, #4facfe, #00f2fe);
-      color: white;
-      padding: 90px 20px;
-      text-align: center;
-    }
-
-    .section {
-      padding: 60px 0;
-    }
-
-    .card {
-      border: none;
-      border-radius: 15px;
-      transition: 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0px 10px 30px rgba(0,0,0,0.1);
-    }
-
-    pre {
-      background: #1e1e1e;
-      color: #00ffcc;
-      padding: 15px;
-      border-radius: 10px;
-      position: relative;
-    }
-
-    .copy-btn {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      font-size: 12px;
-    }
-
-    footer {
-      background: #111;
-      color: #aaa;
-      padding: 20px;
-      text-align: center;
-    }
-  </style>
+<style>
+body { background:#f4f7fb; font-family: 'Segoe UI'; }
+.hero { background: linear-gradient(135deg,#667eea,#764ba2); color:#fff; padding:80px 20px; text-align:center; }
+.section { padding:60px 0; }
+.card { border-radius:15px; border:none; transition:.3s; }
+.card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,.1); }
+pre { background:#1e1e1e; color:#00ffcc; padding:15px; border-radius:10px; }
+.flow-box { background:#fff; padding:20px; border-radius:10px; text-align:center; font-weight:bold; }
+.arrow { text-align:center; font-size:25px; margin:10px 0; }
+</style>
 
 </head>
 
@@ -72,185 +26,198 @@
 <!-- HERO -->
 
 <section class="hero">
-  <div class="container">
-    <h1 class="fw-bold">Terraform Variables 🚀</h1>
-    <p class="lead">Write Clean, Flexible & Scalable Infrastructure Code</p>
-  </div>
+  <h1>Terraform Variables Deep Dive 🚀</h1>
+  <p>Understand the WHY, HOW & FLOW like a real DevOps Engineer</p>
 </section>
 
-<!-- INTRO -->
+<!-- WHY MULTIPLE FILES -->
 
 <section class="section">
-  <div class="container">
-    <h2>📌 What are Terraform Variables?</h2>
-    <p>
-      Terraform variables are used to make your infrastructure code dynamic.
-      Instead of hardcoding values, variables allow you to reuse the same code across different environments.
-    </p>
-  </div>
-</section>
+<div class="container">
+<h2>📂 Why Different .tf Files?</h2>
 
-<!-- WHY -->
-
-<section class="section bg-white">
-  <div class="container">
-    <h2 class="mb-4">🔥 Why Variables Matter</h2>
-    <div class="row g-4">
-
-```
-  <div class="col-md-4">
-    <div class="card p-4 shadow-sm">
-      <h5>♻️ Reusability</h5>
-      <p>Write once and reuse across multiple environments.</p>
-    </div>
-  </div>
-
-  <div class="col-md-4">
-    <div class="card p-4 shadow-sm">
-      <h5>⚡ Flexibility</h5>
-      <p>Change inputs without modifying core infrastructure code.</p>
-    </div>
-  </div>
-
-  <div class="col-md-4">
-    <div class="card p-4 shadow-sm">
-      <h5>🌍 Multi-Environment</h5>
-      <p>Separate configurations for dev, staging, and production.</p>
-    </div>
-  </div>
-
-</div>
-```
-
-  </div>
-</section>
-
-<!-- TYPES -->
-
-<section class="section">
-  <div class="container">
-    <h2>🧱 Types of Variables</h2>
-    <ul>
-      <li>String</li>
-      <li>Number</li>
-      <li>Boolean</li>
-      <li>List</li>
-      <li>Map</li>
-    </ul>
-  </div>
-</section>
-
-<!-- CODE -->
-
-<section class="section bg-white">
-  <div class="container">
-    <h2>💻 Example</h2>
-
-```
-<h5>variables.tf</h5>
-<pre>
-```
-
-<button class="btn btn-sm btn-light copy-btn" onclick="copyCode(this)">Copy</button>
-variable "resource_group_name" {
-description = "Resource Group Name"
-type        = string
-} </pre>
-
-```
-<h5>terraform.tfvars</h5>
-<pre>
-```
-
-<button class="btn btn-sm btn-light copy-btn" onclick="copyCode(this)">Copy</button>
-resource_group_name = "my-rg" </pre>
-
-```
+<div class="row g-4">
+<div class="col-md-4">
+<div class="card p-4">
 <h5>main.tf</h5>
-<pre>
-```
-
-<button class="btn btn-sm btn-light copy-btn" onclick="copyCode(this)">Copy</button>
-resource "azurerm_resource_group" "rg" {
-name     = var.resource_group_name
-location = "Central India"
-} </pre>
-
-  </div>
-</section>
-
-<!-- BENEFITS -->
-
-<section class="section">
-  <div class="container">
-    <h2>✅ Benefits</h2>
-    <div class="row g-4">
-
-```
-  <div class="col-md-6">
-    <div class="card p-4 shadow-sm">
-      <h5>🚀 Faster Deployment</h5>
-      <p>No need to rewrite code for every environment.</p>
-    </div>
-  </div>
-
-  <div class="col-md-6">
-    <div class="card p-4 shadow-sm">
-      <h5>🧠 Maintainability</h5>
-      <p>Clear separation of logic and configuration.</p>
-    </div>
-  </div>
-
-  <div class="col-md-6">
-    <div class="card p-4 shadow-sm">
-      <h5>🔐 Security</h5>
-      <p>Sensitive values can be handled safely.</p>
-    </div>
-  </div>
-
-  <div class="col-md-6">
-    <div class="card p-4 shadow-sm">
-      <h5>📦 Clean Code</h5>
-      <p>No hardcoded values makes code readable.</p>
-    </div>
-  </div>
-
+<p>Contains actual resource logic (WHAT to create)</p>
 </div>
-```
+</div>
 
-  </div>
+<div class="col-md-4">
+<div class="card p-4">
+<h5>variables.tf</h5>
+<p>Defines inputs (WHAT values are needed)</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card p-4">
+<h5>terraform.tfvars</h5>
+<p>Stores actual values (WHAT we pass)</p>
+</div>
+</div>
+</div>
+
+<p class="mt-4">
+👉 Separation = Clean code + reusable infra + easy debugging  
+👉 This is exactly how production Terraform is written
+</p>
+</div>
 </section>
 
-<!-- BEST PRACTICES -->
+<!-- HARD CODING -->
 
 <section class="section bg-white">
-  <div class="container">
-    <h2>⚠️ Best Practices</h2>
-    <ul>
-      <li>Avoid hardcoding values</li>
-      <li>Use descriptive variable names</li>
-      <li>Use default values when needed</li>
-      <li>Keep environment configs in tfvars</li>
-    </ul>
-  </div>
+<div class="container">
+<h2>❌ Why NOT Hardcoding?</h2>
+
+<pre>
+resource "azurerm_resource_group" "rg" {
+  name = "my-prod-rg"
+}
+</pre>
+
+<p class="mt-3">Problems:</p>
+<ul>
+<li>Not reusable ❌</li>
+<li>Hard to change ❌</li>
+<li>Breaks multi-environment setup ❌</li>
+</ul>
+
+<h5 class="mt-4">✅ Correct Way:</h5>
+<pre>
+name = var.rg_name
+</pre>
+
+</div>
 </section>
 
-<!-- FOOTER -->
+<!-- FLOW -->
 
-<footer>
-  <p>© 2026 Gaurav Singh Rana | Terraform DevOps Project</p>
-</footer>
+<section class="section">
+<div class="container">
+<h2>🔁 Terraform Variable Flow</h2>
 
-<!-- JS -->
+<div class="flow-box">1️⃣ Declare Variable</div>
+<div class="arrow">⬇️</div>
+<div class="flow-box">2️⃣ Use Variable</div>
+<div class="arrow">⬇️</div>
+<div class="flow-box">3️⃣ Assign Value</div>
 
-<script>
-function copyCode(btn) {
-  let code = btn.parentElement.innerText.replace("Copy", "").trim();
-  navigator.clipboard.writeText(code);
-  btn.innerText = "Copied!";
-  setTimeout(() => btn.innerText = "Copy", 2000);
+</div>
+</section>
+
+<!-- STEP 1 -->
+
+<section class="section bg-white">
+<div class="container">
+<h3>Step 1: Declare (variables.tf)</h3>
+
+<pre>
+variable "rg_name" {
+  type        = string
+  description = "Resource Group Name"
 }
-</script>
+</pre>
+
+</div>
+</section>
+
+<!-- STEP 2 -->
+
+<section class="section">
+<div class="container">
+<h3>Step 2: Use (main.tf)</h3>
+
+<pre>
+resource "azurerm_resource_group" "rg" {
+  name     = var.rg_name
+  location = "West Europe"
+}
+</pre>
+
+</div>
+</section>
+
+<!-- STEP 3 -->
+
+<section class="section bg-white">
+<div class="container">
+<h3>Step 3: Assign Value (terraform.tfvars)</h3>
+
+<pre>
+rg_name = "my-dev-rg"
+</pre>
+
+</div>
+</section>
+
+<!-- PRIORITY -->
+
+<section class="section">
+<div class="container">
+<h2>⚡ Variable Priority (Important)</h2>
+
+<div class="row g-4">
+
+<div class="col-md-3">
+<div class="card p-3">
+<h5>🥇 CLI</h5>
+<p>terraform apply -var="rg_name=prod"</p>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card p-3">
+<h5>🥈 tfvars</h5>
+<p>terraform.tfvars</p>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card p-3">
+<h5>🥉 ENV</h5>
+<p>TF_VAR_rg_name</p>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card p-3">
+<h5>🏁 Default</h5>
+<p>variables.tf</p>
+</div>
+</div>
+
+</div>
+
+<p class="mt-4">
+👉 Highest priority always overrides lower ones  
+👉 CLI will override everything
+</p>
+
+</div>
+</section>
+
+<!-- SUMMARY -->
+
+<section class="section bg-white">
+<div class="container">
+<h2>✅ Final Summary</h2>
+
+<ul>
+<li>Separate files = clean & scalable</li>
+<li>Never hardcode values</li>
+<li>Follow 3-step flow (Declare → Use → Assign)</li>
+<li>Understand priority (CLI > tfvars > ENV > default)</li>
+</ul>
+
+</div>
+</section>
+
+<footer class="text-center p-3 bg-dark text-light">
+Made by Gaurav Singh Rana | DevOps Terraform Project
+</footer>
 
 </body>
 </html>
