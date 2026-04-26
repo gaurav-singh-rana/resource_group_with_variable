@@ -23,18 +23,6 @@ This project focuses on:
 
 ---
 
-## 📂 Project Structure
-
-```
-.
-├── main.tf          # Core resource definition
-├── variables.tf     # Input variables
-├── outputs.tf       # Output values
-├── terraform.tfvars # Variable values
-```
-
----
-
 ## ⚙️ Prerequisites
 
 Make sure you have:
